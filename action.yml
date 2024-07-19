@@ -1,0 +1,16 @@
+---
+name: Decrypt secrets
+description: Decrypts secrets to enable sharing between GitHub jobs
+inputs:
+  secrets:
+    description: Secrets to be decrypted
+    required: true
+  github-token:
+    description: GitHub token to decrypt secrets
+    required: true
+outputs:
+  decrypted-secret:
+    description: Decrypted secret
+runs:
+  using: node20
+  main: dist/index.js
