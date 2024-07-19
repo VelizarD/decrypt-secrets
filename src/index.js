@@ -1,12 +1,17 @@
 const core = require('@actions/core');
-const exec = require('@actions/exec');
+const crypto = require('crypto');
 
 async function run() {
     try{
         const secrets = core.getInput('secrets');
         const token = core.getInput('github-token');
 
-        await exec.exec(`${__dirname}/decrypt.sh ${secrets} ${token}`);
+        const key = Buffer.from(token.slice(0, 32), 'utf8');
+        const iv = Buffer.from(token.slice(0, 16), 'utf8');
+        const decipher = crypto.createDecipheriv('aes256', key, iv);
+
+        const decryptedSecrets = decipher.update(secrets, 'utf8', 'utf8');
+        core.setOutput('decrypted-secret', decryptedSecrets);
     } catch (error) {
         core.setFailed(error.message);
     }
