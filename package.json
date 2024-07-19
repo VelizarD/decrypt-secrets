@@ -3,16 +3,14 @@
   "version": "0.0.1",
   "main": "src/index.js",
   "scripts": {
-    "build": "ncc build && npm run copy-script",
-    "copy-script": "cp src/decrypt.sh dist/"
+    "build": "ncc build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "GitHub action to decrypt secrets",
   "dependencies": {
-    "@actions/core": "^1.10.1",
-    "@actions/exec": "^1.1.1"
+    "@actions/core": "^1.10.1"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.38.1"
